@@ -9,7 +9,7 @@ from email import encoders
     
     #faz a estrutura do email
 def PrepararEmail(self, assunto, destino, conteudo, arquivo):
-    username = 'datacenteracompanhamento@gmail.com'
+    username = 'email@gmail.com' #email registrado no servidor SMTP
     conteudo = conteudo+"\n\n\nSend by: SENDEX"
     message = MIMEMultipart()
     message['subject'] = assunto
@@ -17,6 +17,7 @@ def PrepararEmail(self, assunto, destino, conteudo, arquivo):
     message['to'] = destino
     message.attach(MIMEText(conteudo))
     qtd = arquivo.split(" ")
+    #se a quantidade de arquivos passados for maior que 1
     if len(qtd)>1:
         for i in range(1, len(qtd)):
             nome = qtd[i].split("/")
@@ -27,6 +28,7 @@ def PrepararEmail(self, assunto, destino, conteudo, arquivo):
             encoders.encode_base64(part)
             part.add_header("Content-Disposition", "attachment; filename= %s" % nome[len(nome)-1])
             message.attach(part)
+    #se a quantidade de arquivo passado for igual a 1
     else:
         nome = arquivo.split("/")
         arq = open(arquivo, "rb")
@@ -49,7 +51,7 @@ def PrepararEmail(self, assunto, destino, conteudo, arquivo):
     #envia a estrura do email para o gmail
 def EnviarEmail(self, from_addr, to_addrs, message):
     smtp_ssl_host = 'smtp.gmail.com'
-    password = 'vidagolplano21'
+    password = 'senha' #senha do email registrado no servidor SMTP
     smtp_ssl_port = 465
     servidor = smtplib.SMTP_SSL(smtp_ssl_host, smtp_ssl_port)
     servidor.login(from_addr, password)
@@ -76,7 +78,6 @@ def Logs(self, metodo):
             log.write("%s\n" % base64.b85encode(l.encode("utf-8")))
             log.close()
 
-#parei aqui
 def LogsEmail(self):
     para = 'datacenteracompanhamento@gmail.com'
     assunto = 'Atenção: Solicitação de logs'
