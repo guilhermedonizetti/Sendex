@@ -9,55 +9,79 @@ from email import encoders
     
     #faz a estrutura do email
 def PrepararEmail(self, assunto, destino, conteudo, arquivo):
-    username = 'email@gmail.com' #email registrado no servidor SMTP
-    conteudo = conteudo+"\n\n\nSend by: SENDEX"
-    message = MIMEMultipart()
-    message['subject'] = assunto
-    message['from'] = username
-    message['to'] = destino
-    message.attach(MIMEText(conteudo))
-    qtd = arquivo.split(" ")
-    #se a quantidade de arquivos passados for maior que 1
-    if len(qtd)>1:
-        for i in range(1, len(qtd)):
-            nome = qtd[i].split("/")
-            arq = open(qtd[i], "rb")
-            anexo = mimetypes.guess_type(qtd[i])[0].split("/")
-            part = MIMEBase(anexo[0], anexo[1])
-            part.set_payload(arq.read())
-            encoders.encode_base64(part)
-            part.add_header("Content-Disposition", "attachment; filename= %s" % nome[len(nome)-1])
-            message.attach(part)
-    #se a quantidade de arquivo passado for igual a 1
+    if assunto=="" or destino=="":
+        return "Vazio"
     else:
-        nome = arquivo.split("/")
-        arq = open(arquivo, "rb")
-        anexo = mimetypes.guess_type(arquivo)[0].split("/")
+        username = #email registrado no servidor SMTP
+        conteudo = conteudo+"\n\n\nSend by: SENDEX"
+        message = MIMEMultipart()
+        message['subject'] = assunto
+        message['from'] = username
+        message['to'] = destino
+        message.attach(MIMEText(conteudo))
+        if arquivo == False:
+            #se existir nenhum arquivo para anexar
+            mensagem = message
+        else:
+            qtd = arquivo.split(" ")
+            #se a quantidade de arquivos for maior que 1
+            if len(qtd)>1:
+                try:
+                    mensagem = MuitosArquivos(qtd, message)
+                except:
+                    return False
+            #se a quantidade de arquivo for igual a 1
+            else:
+                try:
+                    mensagem = UmArquivo(arquivo, message)
+                except:
+                    return False
+            
+        try:
+            envio = EnviarEmail(None, username, destino, mensagem)
+            if envio:
+                return False
+            else:
+                return True
+        except:
+            return False
+
+#Prepara envio de email com 1 arquivo em anexo
+def UmArquivo(arquivo, message):
+    nome = arquivo.split("/")
+    arq = open(arquivo, "rb")
+    anexo = mimetypes.guess_type(arquivo)[0].split("/")
+    part = MIMEBase(anexo[0], anexo[1])
+    part.set_payload(arq.read())
+    encoders.encode_base64(part)
+    part.add_header("Content-Disposition", "attachment; filename= %s" % nome[len(nome)-1])
+    message.attach(part)
+    return message
+
+#Prepara envio de email com muitos arquivos em anexo
+def MuitosArquivos(qtd, message):
+    for i in range(1, len(qtd)):
+        nome = qtd[i].split("/")
+        arq = open(qtd[i], "rb")
+        anexo = mimetypes.guess_type(qtd[i])[0].split("/")
         part = MIMEBase(anexo[0], anexo[1])
         part.set_payload(arq.read())
         encoders.encode_base64(part)
         part.add_header("Content-Disposition", "attachment; filename= %s" % nome[len(nome)-1])
         message.attach(part)
+    return message
 
-    if assunto=="" or destino=="" or conteudo=="":
-        return "Vazio"
-    else:
-        envio = EnviarEmail(None, username, destino, message)
-        if envio:
-            return True
-        else:
-            return envio
-    
-    #envia a estrura do email para o gmail
+#envia a estrura do email para o gmail
 def EnviarEmail(self, from_addr, to_addrs, message):
     smtp_ssl_host = 'smtp.gmail.com'
-    password = 'senha' #senha do email registrado no servidor SMTP
+    password = #senha do email registrado no servidor SMTP
     smtp_ssl_port = 465
     servidor = smtplib.SMTP_SSL(smtp_ssl_host, smtp_ssl_port)
     servidor.login(from_addr, password)
     servidor.sendmail(from_addr, to_addrs, message.as_string())
     servidor.quit()
 
+#Registrar logs de atividades dentro do programas
 def Logs(self, metodo):
     hora = dt.now()
     with open("logs/logs.txt", "a") as log:
@@ -78,8 +102,9 @@ def Logs(self, metodo):
             log.write("%s\n" % base64.b85encode(l.encode("utf-8")))
             log.close()
 
+#Enviar logs para email
 def LogsEmail(self):
-    para = 'datacenteracompanhamento@gmail.com'
+    para = #email registrado no servidor SMTP
     assunto = 'Atenção: Solicitação de logs'
     mensagem = "O conteúdo do arquivo de logs foi solicitado. Segue abaixo o conteúdo:\n\n\n"
     logs = open("logs/logs.txt").readlines()

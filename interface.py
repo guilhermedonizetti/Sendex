@@ -8,7 +8,7 @@ import webbrowser
 import functions.main as main
 import functions.casosdeuso as csu
 #my class
-class Teste:
+class Sendex:
 
 	def __init__(self, master=None):
 		main.Logs(self, 0)
@@ -131,12 +131,16 @@ class Teste:
 		if self.arq != False:
 			enviar = main.PrepararEmail(None, self.assunto.get(), self.email.get(), self.conteudo.get(0.0,END), self.arq)
 		else:
-			enviar = main.PrepararEmail(None, self.assunto.get(), self.email.get(), self.conteudo.get(0.0,END))
+			self.arq = False
+			enviar = main.PrepararEmail(None, self.assunto.get(), self.email.get(), self.conteudo.get(0.0,END), self.arq)
 		y = time()
 		print("Init: {}, Finish: {}, Result: {}".format(x, y, y-x))
 		if enviar=="Vazio":
 			main.Logs(self, 10)
 			messagebox.showerror("","Preencha todos os campos.")
+		if enviar==False:
+			messagebox.showerror("","Erro: não enviado.")
+			self.conteudo.delete(0.0, END)
 		else:
 			main.Logs(self, 11)
 			messagebox.showinfo("","Enviado!")
@@ -155,6 +159,6 @@ class Teste:
 
 root = Tk()
 root.title("Sendex - 2021")
-Teste(root.geometry('1000x900'))
+Sendex(root.geometry('1000x900'))
 root.resizable(0, 0)
 root.mainloop()
