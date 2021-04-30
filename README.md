@@ -18,6 +18,10 @@ Programa para envio de e-mail desenvolvido como projeto de Laboratório de Engen
  
  <br><br>
  
+ <b>Usar: </b> Devido ao status do projeto o programa está incompleto, mas funcional e pode ser demonstrado. Após clonar o projeto deverá abrir o arquivo <code>functions/main.py</code> e alterar as variáveis <b>username</b>, <b>password</b> e <b>para</b>, conforme estará instruindo o comentário do código. Certifique-se de ter um servidor SMTP local configurado, esse projeta utilizou o sSMTP.
+ 
+ <br><br>
+ 
  <p align="center">
  <b>Análise e Desenvolvimento de Sistemas - Fatec Cruzeiro</b>
   <br>
