@@ -16,7 +16,7 @@ Programa para envio de e-mail desenvolvido como projeto de Laboratório de Engen
  :heavy_check_mark: Depende menos de internet, pois a interface não está vinculada ao browser<br>
  :heavy_check_mark: O tempo para iniciar o programa, escrever e enviar é menor<br>
  
- <br><br>
+ <br>
  
  <b>Usar: </b> Devido ao status do projeto o programa está incompleto, mas funcional e pode ser demonstrado. Após clonar o projeto deverá abrir o arquivo <code>functions/main.py</code> e alterar as variáveis <b>username</b>, <b>password</b> e <b>para</b>, conforme estará instruindo o comentário do código. Certifique-se de ter um servidor SMTP local configurado, esse projeta utilizou o sSMTP.
  
