@@ -11,7 +11,39 @@ import functions.casosdeuso as csu
 class Sendex:
 
 	def __init__(self, master=None):
+		self.campoRegistrologo = Frame(master)
+		self.campoRegistrologo["pady"] = 200
+		self.campoRegistrologo.pack()
+
+		self.campoRegistro = Frame(master)
+		self.campoRegistro["pady"] = 10
+		self.campoRegistro["padx"] = 10
+		self.campoRegistro.pack()
+
+		imgLogo = Image.open("images/logoSendex.png")
+		imgLogo = ImageTk.PhotoImage(imgLogo)
+		self.logo = Label(self.campoRegistrologo, image=imgLogo)
+		self.logo.image = imgLogo
+		self.logo.pack()
+
+		self.registro = Entry(self.campoRegistro)
+		self.registro["width"] = 40
+		self.registro.pack(side=LEFT)
+
+		self.botao = Button(self.campoRegistro, text="Entrar", command=self.Entrar, bg="#98FB98")
+		self.botao.pack(side=RIGHT)
+	
+	def Entrar(self):
+		x = "algumasenha"
+		if self.registro.get()==x:
+			self.Elementos()
+		else:
+			self.registro["text"] = "s"
+
+	def Elementos(self, master=None):
 		main.Logs(self, 0)
+		self.campoRegistrologo.pack_forget()
+		self.campoRegistro.pack_forget()
 
 		self.arq = False
 
