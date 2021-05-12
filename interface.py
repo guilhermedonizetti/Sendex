@@ -11,6 +11,9 @@ import functions.casosdeuso as csu
 class Sendex:
 
 	def __init__(self, master=None):
+		self.tela = 1
+		self.fontePadrao = ("Arial", "12")
+
 		self.campoRegistrologo = Frame(master)
 		self.campoRegistrologo["pady"] = 200
 		self.campoRegistrologo.pack()
@@ -28,6 +31,7 @@ class Sendex:
 
 		self.registro = Entry(self.campoRegistro)
 		self.registro["width"] = 40
+		self.registro["show"] = "*"
 		self.registro.pack(side=LEFT)
 
 		self.botao = Button(self.campoRegistro, text="Entrar", command=self.Entrar, bg="#98FB98")
@@ -40,14 +44,77 @@ class Sendex:
 		else:
 			self.registro["text"] = "s"
 
+	def Autenticacao(self, master=None):
+		self.segundoContainer.pack_forget()
+		self.terceiroContainer.pack_forget()
+		self.quartoContainer.pack_forget()
+		self.quintoContainer.pack_forget()
+		self.sextoContainer.pack_forget()
+		self.setimoContainer.pack_forget()
+		self.oitavoContainer.pack_forget()
+		self.nonoContainer.pack_forget()
+		self.decimoContainer.pack_forget()
+
+		self.emailContainer = Frame(master)
+		self.emailContainer["pady"] = 10
+		self.emailContainer.pack()
+
+		self.senhaContainer = Frame(master)
+		self.senhaContainer["pady"] = 10
+		self.senhaContainer.pack()
+
+		self.registroContainer = Frame(master)
+		self.registroContainer["pady"] = 10
+		self.registroContainer.pack()
+
+		self.alterarContainer = Frame(master)
+		self.alterarContainer["pady"] = 10
+		self.alterarContainer.pack()
+
+		self.typeEmail = Label(self.emailContainer, text="Conta do G-mail: ", font=self.fontePadrao)
+		self.typeEmail.pack(side=LEFT)
+
+		self.campoEmail = Entry(self.emailContainer)
+		self.campoEmail["width"] = 49
+		self.campoEmail.pack(side=RIGHT)
+
+		self.typeSenha = Label(self.senhaContainer, text="Senha do e-mail: ", font=self.fontePadrao)
+		self.typeSenha.pack(side=LEFT)
+
+		self.campoSenha = Entry(self.senhaContainer)
+		self.campoSenha["show"] = "*"
+		self.campoSenha.pack(side=LEFT)
+
+		self.typeRegistro = Label(self.senhaContainer, text="Registro: ", font=self.fontePadrao)
+		self.typeRegistro.pack(side=LEFT)
+		
+		self.novoRegistro = Entry(self.senhaContainer)
+		self.novoRegistro["show"] = "*"
+		self.novoRegistro.pack(side=RIGHT)
+
+		self.botaoAlterar = Button(self.alterarContainer, text="Alterar", command=self.AlterarRegistro)
+		self.botaoAlterar.pack()
+
+		self.tela = 3
+		self.autent.pack_forget()
+		self.autent = Button(self.menuContainer, text="Voltar", command=self.Elementos, bg="#98FB98")
+		self.autent.pack(side=RIGHT)
+
 	def Elementos(self, master=None):
 		main.Logs(self, 0)
-		self.campoRegistrologo.pack_forget()
-		self.campoRegistro.pack_forget()
+
+		if self.tela==1:
+			self.campoRegistrologo.pack_forget()
+			self.campoRegistro.pack_forget()
+		if self.tela==3:
+			self.menuContainer.pack_forget()
+			self.primeiroContainer.pack_forget()
+			self.emailContainer.pack_forget()
+			self.senhaContainer.pack_forget()
+			self.registroContainer.pack_forget()
+			self.alterarContainer.pack_forget()
 
 		self.arq = False
-
-		self.fontePadrao = ("Arial", "12")
 
 		self.menuContainer = Frame(master)
 		self.menuContainer.pack()
@@ -94,10 +161,14 @@ class Sendex:
 		self.decimoContainer.pack()
 
 		self.logs = Button(self.menuContainer, text="Logs no e-mail", command=self.logsEmail)
-		self.logs["width"] = 60
+		self.logs["width"] = 50
 		self.logs.pack(side=LEFT)
 
-		self.projeto = Button(self.menuContainer, text="Tutorial", command=self.abrirProjeto)
+		self.autent = Button(self.menuContainer, text="Autenticação", command=self.Autenticacao)
+		self.autent["width"] = 10
+		self.autent.pack(side=LEFT)
+
+		self.projeto = Button(self.menuContainer, text="Tutorial", command=self.abrirTutorial)
 		self.projeto["width"] = 10
 		self.projeto.pack(side=RIGHT)
 
@@ -178,6 +249,12 @@ class Sendex:
 			messagebox.showinfo("","Enviado!")
 			self.conteudo.delete(0.0, END)
 	
+	def AlterarRegistro(self):
+		email = self.campoEmail.get()
+		senha = self.campoSenha.get()
+		registro = self.novoRegistro.get()
+		csu.enviarAlteracao(None, email, senha, registro)
+	
 	def logsEmail(self):
 		main.Logs(self, 2)
 		e = main.LogsEmail(self)
@@ -186,7 +263,7 @@ class Sendex:
 		else:
 			messagebox.showinfo("","Enviado!")
 	
-	def abrirProjeto(self):
+	def abrirTutorial(self):
 		webbrowser.open("tutorial/tutorial.html")
 
 root = Tk()
