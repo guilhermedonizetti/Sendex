@@ -32,15 +32,21 @@ def SelecionarArquivo(self):
 
             return conteudo
 
-def enviarAlteracao(self, email, senha, registro):
-    print("{} | {} | {}".format(email, senha, registro))
-    dados = CifrarDados(email, senha, registro)
-    base = open("dados.txt","w")
-    base.write("{} {} {}".format(dados[0], dados[1], dados[2]))
-    base.close()
+#Metodo para alterar os dados de acesso ao programa
+def enviarAlteracao(self, email, senha, registro, emailnv, senhanv, registronv):
+    dados = DecifrarDados(email, senha, registro)
+    if dados=="Diferente":
+        return dados
+    else:
+        dadosnv = CifrarDados(emailnv, senhanv, registronv)
+        base = open("dados.txt","w")
+        base.write("{} {} {}".format(dadosnv[0], dadosnv[1], dadosnv[2]))
+        base.close()
+        return True
 
-def CifrarDados(email, senha, registro):
-    dados = [email, senha, registro]
+#metodo para cifrar dados com a cifra de Cesar
+def CifrarDados(emailnv, senhanv, registronv):
+    dados = [emailnv, senhanv, registronv]
     cript_dados = []
     caracter = [
             'A','B','&','D','E','Ô','F','G','H','I','J','K','L',
@@ -52,14 +58,9 @@ def CifrarDados(email, senha, registro):
             'Á','É','Ê','Í','M','Ó','Õ','Ú','á','â','à','ã','é',
             'ê','ó','õ','ô','0','.','ç',',','ú','@','7','#','C'
         ]
+    chave = 32
     for i in range(3):
         texto = dados[i]
-        if len(texto)<10:
-            chave = 16
-        if len(texto)>=10 and len(texto)<=29:
-            chave = 24
-        else:
-            chave = 42
         nvtexto = "" 
         for i in range(len(texto)):
             # x recebe o indice da lista de caracteres onde esta o elemento atual + o tamanho da chave
@@ -72,3 +73,40 @@ def CifrarDados(email, senha, registro):
         cript_dados.append(nvtexto)
             
     return cript_dados
+
+#metodo para decifrar dados com a cifra de Cesar
+def DecifrarDados(email, senha, registro):
+    caracter = [
+            'A','B','&','D','E','Ô','F','G','H','I','J','K','L',
+            'N','f','g','h','í','O','P','Q','W','X','Y','Z','6',
+            ' ','a','b','c','d','e','+','i','j','k','l','8','9',
+            'm','n','o','p','q','r','s','t','u','v','w','x','y',
+            'z','1','2','Ç','3','4','5','R','S','T','U','V','\n',
+            '?','!',':','$','-','/','*','%','(',')','Ã','Â','À',
+            'Á','É','Ê','Í','M','Ó','Õ','Ú','á','â','à','ã','é',
+            'ê','ó','õ','ô','0','.','ç',',','ú','@','7','#','C'
+        ]
+    dados = [email, senha, registro] # dados informado pelo user para comparar c/ o atual
+    conteudo = open("dados.txt").read()
+    dados_at = conteudo.split(" ") #recebe os dados atuais
+    dados_dec = [] #recebe os dados
+    dados_iguais = 0 #status da comparacao entre os dados informados e registrados
+    nvtexto = ""
+    chave = 32
+    for i in range(3):
+        texto = dados_at[i]
+        for g in range(len(texto)):
+            # x recebe o indice da lista de caracteres onde esta o elemento atual + o tamanho da chave
+            x = caracter.index(texto[g])-chave
+            if x>=0:
+                nvtexto = nvtexto + caracter[x]
+            else:
+                nvtexto = nvtexto + caracter[len(caracter)+x]
+        dados_dec.append(nvtexto)
+        if nvtexto==dados[i]:
+            dados_iguais = dados_iguais+1
+        nvtexto=""
+    if dados_iguais==3:
+        return dados_dec
+    else:
+        return "Diferente"

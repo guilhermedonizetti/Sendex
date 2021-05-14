@@ -42,7 +42,7 @@ class Sendex:
 		if self.registro.get()==x:
 			self.Elementos()
 		else:
-			self.registro["text"] = "s"
+			messagebox.showerror("", "Errado!")
 
 	def Autenticacao(self, master=None):
 		self.segundoContainer.pack_forget()
@@ -67,30 +67,67 @@ class Sendex:
 		self.registroContainer["pady"] = 10
 		self.registroContainer.pack()
 
+		self.emailContainernovo = Frame(master)
+		self.emailContainernovo["pady"] = 10
+		self.emailContainernovo.pack()
+
+		self.novoContainer = Frame(master)
+		self.novoContainer["pady"] = 10
+		self.novoContainer.pack()
+
 		self.alterarContainer = Frame(master)
 		self.alterarContainer["pady"] = 10
 		self.alterarContainer.pack()
 
-		self.typeEmail = Label(self.emailContainer, text="Conta do G-mail: ", font=self.fontePadrao)
-		self.typeEmail.pack(side=LEFT)
+		self.typeEmailatual = Label(self.emailContainer, text="Conta do atual G-mail: ", font=self.fontePadrao)
+		self.typeEmailatual.pack(side=LEFT)
 
-		self.campoEmail = Entry(self.emailContainer)
-		self.campoEmail["width"] = 49
-		self.campoEmail.pack(side=RIGHT)
+		self.campoEmailatual = Entry(self.emailContainer)
+		self.campoEmailatual["width"] = 45
+		self.campoEmailatual.pack(side=RIGHT)
 
-		self.typeSenha = Label(self.senhaContainer, text="Senha do e-mail: ", font=self.fontePadrao)
-		self.typeSenha.pack(side=LEFT)
+		self.typeSenhaatual = Label(self.senhaContainer, text="Senha do atual e-mail: ", font=self.fontePadrao)
+		self.typeSenhaatual.pack(side=LEFT)
 
-		self.campoSenha = Entry(self.senhaContainer)
-		self.campoSenha["show"] = "*"
-		self.campoSenha.pack(side=LEFT)
+		self.campoSenhaatual = Entry(self.senhaContainer)
+		self.campoSenhaatual["show"] = "*"
+		self.campoSenhaatual["width"] = 16
+		self.campoSenhaatual.pack(side=LEFT)
 
-		self.typeRegistro = Label(self.senhaContainer, text="Registro: ", font=self.fontePadrao)
-		self.typeRegistro.pack(side=LEFT)
+		self.typeRegistroatual = Label(self.senhaContainer, text="Registro atual: ", font=self.fontePadrao)
+		self.typeRegistroatual.pack(side=LEFT)
 		
-		self.novoRegistro = Entry(self.senhaContainer)
-		self.novoRegistro["show"] = "*"
-		self.novoRegistro.pack(side=RIGHT)
+		self.Registroatual = Entry(self.senhaContainer)
+		self.Registroatual["show"] = "*"
+		self.Registroatual["width"] = 16
+		self.Registroatual.pack(side=RIGHT)
+
+		linha = "___________________________"
+		self.separa = Label(self.registroContainer, text="{} Alterar para {}".format(linha, linha), font=self.fontePadrao)
+		self.separa.pack()
+
+		self.typeEmailnovo = Label(self.emailContainernovo, text="Conta do novo G-mail: ", font=self.fontePadrao)
+		self.typeEmailnovo.pack(side=LEFT)
+
+		self.campoEmailnovo = Entry(self.emailContainernovo)
+		self.campoEmailnovo["width"] = 45
+		self.campoEmailnovo.pack(side=RIGHT)
+
+		self.typeSenhanovo = Label(self.novoContainer, text="Senha do novo e-mail: ", font=self.fontePadrao)
+		self.typeSenhanovo.pack(side=LEFT)
+
+		self.campoSenhanovo = Entry(self.novoContainer)
+		self.campoSenhanovo["show"] = "*"
+		self.campoSenhanovo["width"] = 16
+		self.campoSenhanovo.pack(side=LEFT)
+
+		self.typeRegistronovo = Label(self.novoContainer, text="Novo registro: ", font=self.fontePadrao)
+		self.typeRegistronovo.pack(side=LEFT)
+		
+		self.Registronovo = Entry(self.novoContainer)
+		self.Registronovo["show"] = "*"
+		self.Registronovo["width"] = 16
+		self.Registronovo.pack(side=RIGHT)
 
 		self.botaoAlterar = Button(self.alterarContainer, text="Alterar", command=self.AlterarRegistro)
 		self.botaoAlterar.pack()
@@ -112,6 +149,8 @@ class Sendex:
 			self.emailContainer.pack_forget()
 			self.senhaContainer.pack_forget()
 			self.registroContainer.pack_forget()
+			self.emailContainernovo.pack_forget()
+			self.novoContainer.pack_forget()
 			self.alterarContainer.pack_forget()
 
 		self.arq = False
@@ -250,10 +289,18 @@ class Sendex:
 			self.conteudo.delete(0.0, END)
 	
 	def AlterarRegistro(self):
-		email = self.campoEmail.get()
-		senha = self.campoSenha.get()
-		registro = self.novoRegistro.get()
-		csu.enviarAlteracao(None, email, senha, registro)
+		email = self.campoEmailatual.get()
+		senha = self.campoSenhaatual.get()
+		registro = self.Registroatual.get()
+		emailnovo = self.campoEmailnovo.get()
+		senhanovo = self.campoSenhanovo.get()
+		registronovo = self.Registronovo.get()
+		alt = csu.enviarAlteracao(None, email, senha, registro, emailnovo, senhanovo, registronovo)
+		if alt=="Diferente":
+			messagebox.showerror("Dados incorretos.","Dados atuais incorretos.")
+		else:
+			messagebox.showinfo("Alterado!", "Alterado com sucesso.")
+			self.Elementos()
 	
 	def logsEmail(self):
 		main.Logs(self, 2)
