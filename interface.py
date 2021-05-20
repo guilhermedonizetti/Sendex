@@ -38,7 +38,8 @@ class Sendex:
 		self.botao.pack(side=RIGHT)
 	
 	def Entrar(self):
-		x = "algumasenha"
+		registro_sendex = csu.DadosServidor()
+		x = registro_sendex[2]
 		if self.registro.get()==x:
 			self.Elementos()
 		else:
@@ -318,3 +319,5 @@ root.title("Sendex - 2021")
 Sendex(root.geometry('1000x900'))
 root.resizable(0, 0)
 root.mainloop()
+
+#ÀV%UVM

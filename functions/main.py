@@ -1,3 +1,4 @@
+import functions.casosdeuso as cs #metodos internos
 import smtplib
 import base64
 import mimetypes
@@ -12,7 +13,8 @@ def PrepararEmail(self, assunto, destino, conteudo, arquivo):
     if assunto=="" or destino=="":
         return "Vazio"
     else:
-        username = 'email' #email registrado no servidor SMTP
+        srv_email = cs.DadosServidor()
+        username = srv_email[0] #email registrado no servidor SMTP
         conteudo = conteudo+"\n\n\nSend by: SENDEX"
         message = MIMEMultipart()
         message['subject'] = assunto
@@ -73,8 +75,9 @@ def MuitosArquivos(qtd, message):
 
 #envia a estrura do email para o gmail
 def EnviarEmail(self, from_addr, to_addrs, message):
+    srv_senha = cs.DadosServidor()
     smtp_ssl_host = 'smtp.gmail.com'
-    password = 'senha' #senha do email registrado no servidor SMTP
+    password = srv_senha[1] #senha do email registrado no servidor SMTP
     smtp_ssl_port = 465
     servidor = smtplib.SMTP_SSL(smtp_ssl_host, smtp_ssl_port)
     servidor.login(from_addr, password)
@@ -104,7 +107,8 @@ def Logs(self, metodo):
 
 #Enviar logs para email
 def LogsEmail(self):
-    para = "email"
+    srv_email = cs.DadosServidor()
+    para = srv_email[0]
     assunto = 'Atenção: Solicitação de logs'
     mensagem = "O conteúdo do arquivo de logs foi solicitado. Segue abaixo o conteúdo:\n\n\n"
     logs = open("logs/logs.txt").readlines()
