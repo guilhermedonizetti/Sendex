@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script type="text/javascript" src="conteudo.json"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <title>Tutorial Sendex</title>    
     </head>
 
@@ -17,33 +17,81 @@
     <!--Corpo da pagina-->
     <body>
         <center>
-            <img src="../images/SENDEX.gif" width="500" height="500">
+            <img src="../images/SENDEX.gif" width="200" height="200">
             <p id="sub">Este é o guia oficial de como usar o software Sendex. Selecione as opções para ver a explicação:</p>
             
-<!--Um-->  <button type="button" class="btn btn-outline-success" onclick="BotaoUm()"><b>Enviar E-mail</b></button>
-<!--Dois--><button type="button" class="btn btn-outline-danger" onclick="BotaoDois()"><b>Autenticação</b></button>
-<!--Tres--><button type="button" class="btn btn-outline-primary" onclick="BotaoTres()"><b>Solicitar Logs</b></button>
+<!--Um-->  <button type="button" class="btn btn-outline-success" id="BotaoUm"><b>Enviar E-mail</b></button>
+<!--Dois--><button type="button" class="btn btn-outline-danger" id="BotaoDois"><b>Autenticação</b></button>
+<!--Tres--><button type="button" class="btn btn-outline-primary" id="BotaoTres"><b>Solicitar Logs</b></button>
         </center>
 
-        <center>
-            <div id="explicacao">
+        <div class="container" id="content" style="text-align: justify;">
+            <!-- conteudo sobre o envio de emails -->
+            <div id="botaoum" style="display: none;">
+                <br>
+                <center><b>Enviar E-mail</b></center><br>
+                <p>Para enviar e-mail basta preencher os campos <b>Para</b>, <b>Assunto</b> e <b>Conteúdo</b>, selecionar arquivo é opcional. Por fim, clicar em <b>Enviar</b>. Após enviar, o programa deve retornar uma mensagem de que foi enviado com sucesso, e então não necessita enviar novamente. Mas se retornar uma das seguintes mensagens de erro:
+                    <li><b>Preencha todos os campos: </b>isso significa que você não preencheu os campos Para e/ou Assunto.</li>
+                    <li><b>Não enviado: </b>pode ser que o e-mail informado no campo "Para" não exista, verifique o que você digitou. Se estiver correto as causas para esse problema pode ser ausência de servidor local SMTP, dados de acesso ao servidor SMTP estão incompatíveis com o programa, e outros. Verifique as instruções nas instruções sobre Autenticação.</li><br>
+                <br>
             </div>
-        </center>
+
+            <!-- conteudo sobre autenticacao -->
+            <div id="botaodois" style="display: none;">
+                <br>
+                <center><b>Autenticação</b></center><br>
+                <p>Existem três dados que são referentes à autenticação no Sendex: <b>e-mail</b>, <b>senha</b> e <b>registro</b>:</p>
+                <li><b>e-mail: </b>endereço de e-mail registrado no seu servidor SMTP.</li>
+                <li><b>senha: </b>senha registrada no seu servidor SMTP (senha da conta de e-mail acima).</li>
+                <li><b>registro: </b>valor qualquer. Serve de senha para entrar no programa.</li>
+                <br>
+                <p>Quando o programa é instalado você precisa atualizar a Autenticação, porque esses três dados apresentados vêm configurados como <b>sendex</b>, esperando que você atualize para os dados corretos. Mas se você alterou a senha da conta de email e já alterou no servidor SMTP, também é necessário atualizar aqui a autenticação, ou se alterar de conta de email, entre outras. Para atualizar basta seguir até a tela de Autenticação e preencher conforme abaixo:</p>
+                <b>Atualizando pela 1ª vez</b>
+                <li><b>Conta do atual G-mail:</b> digite <b>sendex</b>, essa é a configuração padrão inicial.</li>
+                <li><b>Senha do atual e-mail:</b> digite <b>sendex</b>.</li>
+                <li><b>Registro atual:</b> digite <b>sendex</b>.</li>
+                Atualizar para
+                <li><b>Conta do novo G-mail:</b> conta de e-mail registrada no servidor SMTP.</li>
+                <li><b>Senha do novo e-mail:</b> senha registrada no servidor SMTP (senha da conta).</li>
+                <li><b>Novo registro:</b> informe qualquer valor (NÃO PODE SER ESQUECIDO) e use ele para entre no programa.</li>
+                <br>
+                <b>Não é a 1ª vez</b>
+                <p>Dos dados atuais, informeo que está sendo utilizado até o momento. Dos novos dados, faça como foi feito na primeira vez (veja acima).</p>
+                <br>
+                <p>Se você não se sentir confortável em informar a conta e a senha da mesma, poderá criar uma conta de e-mail apenas para isso. Mas lembre-se, deve ser a mesma registrada no servidor SMTP.</p>
+                <br>
+            </div>
+
+            <!-- conteudo sobre envio dos logs por email -->
+            <div id="botaotres" style="display: none;">
+                <br>
+                <center><b>Solicitar Logs</b></center><br>
+                <p>Os logs são registro das atividades dentro do sistema, contém as informações de hora e ação, exemplo: <code>email enviado com sucesso - [24/07/2021 às 14:19:33]</code>, sem envolver os dados de e-mails remetentes e do servidor. Porém, todas as atividades são registradas para que por algum motivo seja possível realizar análise do que foi feito.</p>
+                <p>Ao clicar no botão de solicitação de logs, os registros serão enviados para o e-mail registrado no servidor SMTP, sem perguntar se deseja enviar para outra conta. A solicitação deve ser bem sucedida retornando uma mensagem positiva do envio. Caso retorne um erro, verifique as instruções sobre Autenticação.</p>
+                <br>
+            </div>
+        </div>
 
         <!--Funcoes JS para responder aos cliques dos botoes-->
         <script type="text/javascript">
-            var explic = JSON.parse(explicacao)
-            function BotaoUm(){
-                document.getElementById("explicacao").innerHTML = explic[0].text;
-            }
 
-            function BotaoDois(){
-                document.getElementById("explicacao").innerHTML = explic[1].text;
-            }
+            $("#BotaoUm").click(function () {
+                $("#botaodois").hide(1000);
+                $("#botaotres").hide(1000);
+                $("#botaoum").show(1000);
+            });
 
-            function BotaoTres(){
-                document.getElementById("explicacao").innerHTML = explic[2].text;
-            }
+            $("#BotaoDois").click(function () {
+                $("#botaoum").hide(1000);
+                $("#botaotres").hide(1000);
+                $("#botaodois").show(1000);
+            });
+
+            $("#BotaoTres").click(function () {
+                $("#botaoum").hide(1000);
+                $("#botaodois").hide(1000);
+                $("#botaotres").show(1000);
+            });
         </script>
 
     </body>

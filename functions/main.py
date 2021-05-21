@@ -42,9 +42,9 @@ def PrepararEmail(self, assunto, destino, conteudo, arquivo):
         try:
             envio = EnviarEmail(None, username, destino, mensagem)
             if envio:
-                return False
-            else:
                 return True
+            else:
+                return False
         except:
             return False
 
@@ -116,4 +116,5 @@ def LogsEmail(self):
         x = logs[i][2:len(logs[i])-2].encode("utf-8")
         x = base64.b85decode(x)
         mensagem = mensagem+"{}\n".format(x)
-    PrepararEmail(self, assunto, para, mensagem)
+    resul = PrepararEmail(self, assunto, para, mensagem, False)
+    return resul

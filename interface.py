@@ -29,6 +29,9 @@ class Sendex:
 		self.logo.image = imgLogo
 		self.logo.pack()
 
+		self.textRegistro = Label(self.campoRegistro, text="Registro:")
+		self.textRegistro.pack(side=LEFT)
+
 		self.registro = Entry(self.campoRegistro)
 		self.registro["width"] = 40
 		self.registro["show"] = "*"
@@ -284,7 +287,7 @@ class Sendex:
 		if enviar==False:
 			messagebox.showerror("","Erro: não enviado.")
 			self.conteudo.delete(0.0, END)
-		else:
+		if enviar==True:
 			main.Logs(self, 11)
 			messagebox.showinfo("","Enviado!")
 			self.conteudo.delete(0.0, END)
@@ -312,7 +315,10 @@ class Sendex:
 			messagebox.showinfo("","Enviado!")
 	
 	def abrirTutorial(self):
-		webbrowser.open("tutorial/tutorial.html")
+		try:
+			webbrowser.open("tutorial/tutorial.html")
+		except:
+			webbrowser.open("github.com/guilhermedonizetti/Sendex")
 
 root = Tk()
 root.title("Sendex - 2021")
