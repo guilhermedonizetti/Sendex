@@ -18,7 +18,14 @@ Programa para envio de e-mail desenvolvido como projeto de Laboratório de Engen
  
  <br>
  
- <b>Usar: </b> Devido ao status do projeto o programa está incompleto, mas funcional e pode ser demonstrado. Após clonar o projeto deverá abrir o arquivo <code>functions/main.py</code> e alterar as variáveis <b>username</b>, <b>password</b> e <b>para</b>, conforme estará instruindo o comentário do código. Certifique-se de ter um servidor SMTP local configurado, esse projeta utilizou o sSMTP.
+ <b>Usar: </b> Devido ao status do projeto o programa está incompleto, mas funcional e pode ser demonstrado. Após clonar o projeto deverá executar o arquivo <code>interface.py</code> e entrar digitando a senha <b>sendex</b>. Após entrar, clique no botão Autenticação para permitir que o programa se conecte com o seu servidor SMTP, isso deverá ser feito apenas uma vez no primeiro acesso. Siga as instruções:<br>
+ :point_right: Conta do atual G-mail: digite sendex<br>
+ :point_right: Senha do atual e-mail: digite sendex<br>
+ :point_right: Registro atual: digite sendex<br>
+ :point_right: Conta do novo G-mail: informe o gmail registrado no seu servidor SMTP<br>
+ :point_right: Senha do novo e-mail: informe a senha registrado no seu servidor SMTP<br>
+ :point_right: Novo registro: informe uma senha para entrar no programa (não pode esquecer)<br>
+ Certifique-se de ter um servidor SMTP instalado e configurado em sua máquina, no projeto o teste foi feito com sSMTP.
  
  <br><br>
  
