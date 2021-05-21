@@ -105,7 +105,7 @@ def Logs(self, metodo):
             log.write("%s\n" % base64.b85encode(l.encode("utf-8")))
             log.close()
 
-#Enviar logs para email
+#Enviar logs para email registrado
 def LogsEmail(self):
     srv_email = cs.DadosServidor()
     para = srv_email[0]

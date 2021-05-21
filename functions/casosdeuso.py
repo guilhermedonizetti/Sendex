@@ -63,7 +63,7 @@ def CifrarDados(emailnv, senhanv, registronv):
         texto = dados[i]
         nvtexto = "" 
         for i in range(len(texto)):
-            # x recebe o indice da lista de caracteres onde esta o elemento atual + o tamanho da chave
+            # x recebe o indice da lista de caracter onde esta o elemento atual + o tamanho da chave
             x = caracter.index(texto[i])+chave
             y = len(caracter)-x
             if y>0:

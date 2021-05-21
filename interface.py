@@ -325,5 +325,3 @@ root.title("Sendex - 2021")
 Sendex(root.geometry('1000x900'))
 root.resizable(0, 0)
 root.mainloop()
-
-#ÀV%UVM
