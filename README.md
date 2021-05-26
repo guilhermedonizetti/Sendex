@@ -27,6 +27,9 @@ Programa para envio de e-mail desenvolvido como projeto de Laboratório de Engen
  :point_right: Novo registro: informe uma senha para entrar no programa (não pode esquecer)<br>
  Certifique-se de ter um servidor SMTP instalado e configurado em sua máquina, no projeto o teste foi feito com sSMTP.
  
+ <br>
+ <b>Servidor SMTP: </b>Caso você ainda não tenha sua conexão com um servidor SMTP, <a href="https://guilhermedonizettiads.medium.com/protocolo-e-agente-smtp-9fb424693109">veja aqui como instalar e configurar um agente.</a>
+ 
  <br><br>
  
  <p align="center">
