@@ -15,6 +15,7 @@ def PrepararEmail(self, assunto, destino, conteudo, arquivo):
     else:
         srv_email = cs.DadosServidor()
         username = srv_email[0] #email registrado no servidor SMTP
+        print(username)
         conteudo = conteudo+"\n\n\nSend by: SENDEX"
         message = MIMEMultipart()
         message['subject'] = assunto
@@ -42,9 +43,9 @@ def PrepararEmail(self, assunto, destino, conteudo, arquivo):
         try:
             envio = EnviarEmail(None, username, destino, mensagem)
             if envio:
-                return True
-            else:
                 return False
+            else:
+                return True
         except:
             return False
 
@@ -78,6 +79,7 @@ def EnviarEmail(self, from_addr, to_addrs, message):
     srv_senha = cs.DadosServidor()
     smtp_ssl_host = 'smtp.gmail.com'
     password = srv_senha[1] #senha do email registrado no servidor SMTP
+    print(password)
     smtp_ssl_port = 465
     servidor = smtplib.SMTP_SSL(smtp_ssl_host, smtp_ssl_port)
     servidor.login(from_addr, password)
