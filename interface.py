@@ -310,9 +310,9 @@ class Sendex:
 		main.Logs(self, 2)
 		e = main.LogsEmail(self)
 		if e==True:
-			messagebox.showerror("","Erro!")
-		else:
 			messagebox.showinfo("","Enviado!")
+		else:
+			messagebox.showerror("","Erro!")
 	
 	def abrirTutorial(self):
 		try:

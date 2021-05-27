@@ -118,5 +118,6 @@ def LogsEmail(self):
         x = logs[i][2:len(logs[i])-2].encode("utf-8")
         x = base64.b85decode(x)
         mensagem = mensagem+"{}\n".format(x)
-    resul = PrepararEmail(self, assunto, para, mensagem, False)
-    return resul
+    a = False
+    PrepararEmail(None, assunto, para, mensagem, a)
+    return True
