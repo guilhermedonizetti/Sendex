@@ -3,7 +3,7 @@
   <br>
 Programa para envio de e-mail desenvolvido como projeto de Laboratório de Engenharia de Software e Testes de Software, na Fatec Cruzeiro.
   <br>
-  Status do Projeto: Em desenvolvimento :warning:
+  Status do Projeto: Finalizado :heavy_check_mark:
  </p>
  <br>
  <b>Objetivo:</b> O programa visa o envio de e-mails com arquivos em anexo, dispensando a necessidade de inicar um navegador para realização da atividade.
@@ -18,7 +18,7 @@ Programa para envio de e-mail desenvolvido como projeto de Laboratório de Engen
  
  <br>
  
- <b>Usar: </b> Devido ao status do projeto o programa está incompleto, mas funcional e pode ser demonstrado. Após clonar o projeto deverá executar o arquivo <code>interface.py</code> e entrar digitando a senha <b>sendex</b>. Após entrar, clique no botão Autenticação para permitir que o programa se conecte com o seu servidor SMTP, isso deverá ser feito apenas uma vez no primeiro acesso. Siga as instruções:<br>
+ <b>Usar: </b> Após clonar o projeto deverá executar o arquivo <code>interface.py</code> e entrar digitando a senha <b>sendex</b>. Após entrar, clique no botão Autenticação para permitir que o programa se conecte com o seu servidor SMTP, isso deverá ser feito apenas uma vez no primeiro acesso. Siga as instruções:<br>
  :point_right: Conta do atual G-mail: digite sendex<br>
  :point_right: Senha do atual e-mail: digite sendex<br>
  :point_right: Registro atual: digite sendex<br>
