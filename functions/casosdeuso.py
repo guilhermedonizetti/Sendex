@@ -6,16 +6,13 @@ def SelecionarArquivo(self):
     conteudo = []
     arq = askopenfiles()
     if arq:
-        print("%s\n" % str(arq))
         qtd = str(arq).split(",")
-        print("{}\n".format(qtd))
         if len(qtd)==1:
             nome = str(arq).split("'")
             conteudo.append(nome[1])
             nome = nome[1].split("/")
             nome = nome[len(nome)-1]
             conteudo.append(nome)
-            print(conteudo)
             return conteudo
         else:
             cont = ""
@@ -28,7 +25,6 @@ def SelecionarArquivo(self):
                 cont = cont+" %s" % nome
             conteudo.append(path)
             conteudo.append(cont)
-            print(conteudo)
 
             return conteudo
 
@@ -39,7 +35,6 @@ def enviarAlteracao(self, email, senha, registro, emailnv, senhanv, registronv):
         return dados
     else:
         dadosnv = CifrarDados(emailnv, senhanv, registronv)
-        print("Vai ser inserido no dados.txt: ".format(dadosnv))
         base = open("functions/dados.txt","w")
         base.write("{} {} {}".format(dadosnv[0], dadosnv[1], dadosnv[2]))
         base.close()

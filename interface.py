@@ -280,13 +280,11 @@ class Sendex:
 			self.arq = False
 			enviar = main.PrepararEmail(None, self.assunto.get(), self.email.get(), self.conteudo.get(0.0,END), self.arq)
 		y = time()
-		print("Init: {}, Finish: {}, Result: {}".format(x, y, y-x))
 		if enviar=="Vazio":
 			main.Logs(self, 10)
 			messagebox.showerror("","Preencha todos os campos.")
 		if enviar==False:
 			messagebox.showerror("","Erro: não enviado.")
-			self.conteudo.delete(0.0, END)
 		if enviar==True:
 			main.Logs(self, 11)
 			messagebox.showinfo("","Enviado!")
