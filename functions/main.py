@@ -104,6 +104,10 @@ def Logs(self, metodo):
             l = "-> Solicitado/Envio de log para e-mail registrado. - [{}]".format(hora)
             log.write("%s\n" % base64.b85encode(l.encode("utf-8")))
             log.close()
+        if metodo==12:
+            l = "-> Alterados os dados de conexao e acesso. - [{}]".format(hora)
+            log.write("%s\n" % base64.b85encode(l.encode("utf-8")))
+            log.close()
 
 #Enviar logs para email registrado
 def LogsEmail(self):

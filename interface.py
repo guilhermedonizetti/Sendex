@@ -302,6 +302,7 @@ class Sendex:
 			messagebox.showerror("Dados incorretos.","Dados atuais incorretos.")
 		else:
 			messagebox.showinfo("Alterado!", "Alterado com sucesso.")
+			main.Logs(self, 12)
 			self.Elementos()
 	
 	def logsEmail(self):
