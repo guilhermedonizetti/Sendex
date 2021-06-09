@@ -1,3 +1,6 @@
+#metodos internos
+import functions.main as main
+import functions.casosdeuso as csu
 #imports for project
 from tkinter import *
 from tkinter import messagebox
@@ -5,12 +8,11 @@ from tkinter.filedialog import askopenfiles
 from time import sleep, time
 from PIL import ImageTk, Image
 import webbrowser
-import functions.main as main
-import functions.casosdeuso as csu
 #my class
 class Sendex:
 
 	def __init__(self, master=None):
+		#inicializa gerando a tela para autenticar
 		self.tela = 1
 		self.fontePadrao = ("Arial", "12")
 
@@ -40,6 +42,7 @@ class Sendex:
 		self.botao = Button(self.campoRegistro, text="Entrar", command=self.Entrar, bg="#98FB98")
 		self.botao.pack(side=RIGHT)
 	
+	#Verificar se o Registro esta correto
 	def Entrar(self):
 		registro_sendex = csu.DadosServidor()
 		x = registro_sendex[2]
@@ -48,6 +51,7 @@ class Sendex:
 		else:
 			messagebox.showerror("", "Errado!")
 
+	#Metodo para gerar a tela de Autenticacao
 	def Autenticacao(self, master=None):
 		self.segundoContainer.pack_forget()
 		self.terceiroContainer.pack_forget()
@@ -141,6 +145,7 @@ class Sendex:
 		self.autent = Button(self.menuContainer, text="Voltar", command=self.Elementos, bg="#98FB98")
 		self.autent.pack(side=RIGHT)
 
+	#Metodo para gerar a tela inicial apos a autenticacao
 	def Elementos(self, master=None):
 		main.Logs(self, 0)
 
@@ -255,6 +260,7 @@ class Sendex:
 		self.enviar["width"] = 20
 		self.enviar.pack(side=LEFT)
 	
+	#Selecionar arquivos para anexo do email
 	def SelecionarArq(self):
 		conteudo = csu.SelecionarArquivo(self)
 		if conteudo:
@@ -265,6 +271,7 @@ class Sendex:
 			self.removeArq["bg"] = "#DCDCDC"
 			self.removeArq.pack(side=RIGHT)
 	
+	#Remover o(s) arquivo(s) selecionado(s)
 	def RemoverArquivo(self):
 		self.arq = False
 		self.arquivo["text"] = "Selecionar arquivo"
@@ -272,6 +279,7 @@ class Sendex:
 		self.removeArq["text"] = "Removido"
 		self.removeArq["bg"] = "#FA8072"
 
+	#Enviar e-mail (caso de uso principal)
 	def enviarEmail(self):
 		x = time()
 		if self.arq != False:
@@ -290,6 +298,7 @@ class Sendex:
 			messagebox.showinfo("","Enviado!")
 			self.conteudo.delete(0.0, END)
 	
+	#Alterar os dados de conexao com o servidor SMTP e de acesso ao Sendex
 	def AlterarRegistro(self):
 		email = self.campoEmailatual.get()
 		senha = self.campoSenhaatual.get()
@@ -305,6 +314,7 @@ class Sendex:
 			main.Logs(self, 12)
 			self.Elementos()
 	
+	#Enviar os Logs doprograma para o email registrado
 	def logsEmail(self):
 		main.Logs(self, 2)
 		e = main.LogsEmail(self)
@@ -313,6 +323,7 @@ class Sendex:
 		else:
 			messagebox.showerror("","Erro!")
 	
+	#Abrir o tutorial ou o repositorio do projeto
 	def abrirTutorial(self):
 		try:
 			webbrowser.open("tutorial/tutorial.html")

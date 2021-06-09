@@ -28,19 +28,20 @@ def SelecionarArquivo(self):
 
             return conteudo
 
-#Metodo para alterar os dados de acesso ao programa
+#Alterar os dados de acesso ao programa
 def enviarAlteracao(self, email, senha, registro, emailnv, senhanv, registronv):
     dados = DecifrarDados(email, senha, registro)
     if dados=="Diferente":
         return dados
     else:
         dadosnv = CifrarDados(emailnv, senhanv, registronv)
+        #Atualizar
         base = open("functions/dados.txt","w")
         base.write("{} {} {}".format(dadosnv[0], dadosnv[1], dadosnv[2]))
         base.close()
         return True
 
-#metodo para cifrar dados com a cifra de Cesar
+#Cifrar dados com a cifra de Cesar
 def CifrarDados(emailnv, senhanv, registronv):
     dados = [emailnv, senhanv, registronv]
     chave = [2, 0, 3, 1, 4]
@@ -92,7 +93,7 @@ def CifrarDados(emailnv, senhanv, registronv):
         cript_dados.append(n_texto)
     return cript_dados
 
-#metodo para decifrar dados com a cifra de Cesar
+#Decifrar dados com a cifra de Cesar
 def DecifrarDados(email, senha, registro):
     chave = [2, 0, 3, 1, 4]
     dados = [email, senha, registro] # dados informado pelo user para comparar c/ o atual

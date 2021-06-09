@@ -84,7 +84,7 @@ def EnviarEmail(self, from_addr, to_addrs, message):
     servidor.sendmail(from_addr, to_addrs, message.as_string())
     servidor.quit()
 
-#Registrar logs de atividades dentro do programas
+#Registrar logs de atividades dentro do programa
 def Logs(self, metodo):
     hora = dt.now()
     with open("logs/logs.txt", "a") as log:
